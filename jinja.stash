@@ -1,0 +1,505 @@
+# Jinja / Jinja2 SpeedSheet
+
+
+# Basics
+
+<table><col>Comment<><col><c><#>{# Comment #}<><><>
+<col>Expression<><col><c>{% <v>expression<> %}<><>
+<col>Display Result<><col><c>{{ <v>expression<> }}<><>
+<col>Display Variable<><col><c>{{ <v>name<> }}<><>
+<col> <>
+<col>Raw<><col><c>{% raw %}<v>...<>{% endraw %}<><>
+<col> <>
+<col>Base - Define Block<><col><c>{% block <v>block_name<> %}{% endblock %}<><>
+<col> <>
+<col>Include Base<><col><c>{% extends "<v>base_template_file<>" %}<><>
+<col>Complete Base Block<><col><c>{% block <v>block_name<> %}<v>...<>{% endblock %}<><>
+<col> <>
+<col> <>
+<col>If Else<><col><c>{% if <v>expression<> %}
+        <v>...<>
+{% else  <v>expression<> %}
+        <v>...<>
+{% endif %}<><>
+<col> <>
+<col>For<><col><c>{% for <v>item<> in <v>items<> %}
+        <v>...<> {{ <v>item<> }}
+{% endfor %}<><><>
+
+
+
+# Summary
+
+Jinja is a fast and flexible templating engine.
+
+
+### Online References
+
+Official:
+<l>https://jinja.palletsprojects.com/en/3.0.x/<>
+
+Documents:
+<l>https://jinja.palletsprojects.com/en/3.0.x/<>
+
+
+
+### Install - PIP
+
+<cb>pip3 install Jinja2<>
+@
+@ library
+
+
+
+### Install - PIP Requirements.txt
+
+File Name:
+
+<cb>requirements.txt<>
+
+Add:
+
+<cb>Jinja2<>
+@
+@ library
+
+
+
+### Import - File Template
+
+<cb>from jinja2 import Environment, FileSystemLoader<>
+@
+@ from jinja2 import Environment, FileSystemLoader
+@ library
+
+
+
+### Import - String Template
+
+<cb>from jinja2 import Template<>
+@
+@ from jinja2 import Template
+@ library
+
+
+# Hello World
+
+
+### Basic Example
+
+<cb>from jinja2 import Template
+
+<v>template_text<> = 'Hello {{<v>name<>}} from {{<v>hometown<>}}!'
+
+<v>template<> = Template(<v>template_text<>)
+<v>result<> = <v>template<>.render({
+        '<v>name<>': 'John',
+        '<v>hometown<>': 'Springfield'})
+
+print(<v>result<>)
+
+<#>Prints: Hello John from Springfield!<><>
+
+
+
+### Basic File Example
+
+File Name:
+
+<cb>hello.text<>
+
+File Contents:
+
+<cb>Hello {{<v>name<>}} from {{<v>hometown<>}}!<>
+
+Python:
+
+<cb>from jinja2 import Environment, FileSystemLoader
+
+<v>loader<> = FileSystemLoader('.')
+<v>environment<> = Environment(loader = <v>loader<>)
+
+<v>template<> = <v>environment<>.get_template('<v>hello.text<>')
+
+<v>result<> = <v>template<>.render({
+        '<v>name<>': 'John',
+        '<v>hometown<>': 'Springfield'})
+
+print(<v>result<>)
+
+<#>Prints: Hello John from Springfield!<><>
+
+
+
+# Template - Create
+
+
+### Template - Create From File
+
+<cb>from jinja2 import Environment, FileSystemLoader
+
+<v>loader<> = FileSystemLoader(<v>template_directory<>)
+<v>environment<> = Environment(loader = <v>loader<>)
+<v>template<> = <v>environment<>.get_template(<v>file_name<>)<>
+
+
+Creates a template from a text file.
+
+
+Example:
+
+<in-2>File Name:
+
+<cb>hello.text<>
+
+File Contents:
+
+<cb>Hello {{<v>name<>}}!<>
+
+Python:
+
+<cb>from jinja2 import Environment, FileSystemLoader
+
+<v>loader<> = FileSystemLoader('.')
+<v>environment<> = Environment(loader = <v>loader<>)
+<v>template<> = <v>environment<>.get_template('<v>hello.text<>')
+
+<v>result<> = <v>template<>.render(<v>name<> = '<v>John<>')
+
+print(<v>result<>)
+
+<#>Prints: Hello John!<><><><>
+@
+@ jinja2.FileSystemLoader(), .FileSystemLoader()
+@ jinja2.Environment(), .Environment()
+@ .get_template()
+@ new, define
+
+
+
+### Template - Create From String
+
+<cb>from jinja2 import Template
+
+<v>template<> = Template(<v>template_string<>)<>
+
+
+Creates a template from a string or string variable.
+
+
+Example:
+
+<cb>from jinja2 import Template
+
+<v>template_text<> = 'Hello {{<v>name<>}}!'
+
+<v>template<> = Template(<v>template_text<>)
+<v>result<> = <v>template<>.render(<v>name<> = '<v>John<>')
+
+print(<v>result<>)
+
+<#>Prints: Hello John from Springfield!<><>
+@
+@ jinja2.template(), template()
+@ new, define
+
+
+# Template - Render
+@
+@ .render()
+
+
+### Template - Render
+
+<cb>= <v>template_1<>.render()<>
+
+<cb>= <v>template_1<>.render(<v>data<>)<>
+
+
+
+### Template - Render- Pass Dict
+
+<cb>= <v>template_1<>.render(<v>dict_1<>)<>
+
+
+Renders a template using the dict as a list of name value variables.
+
+
+Example:
+
+<cb>from jinja2 import Template
+
+<v>template_text<> = 'Hello {{<v>name<>}} from {{<v>hometown<>}}!'
+
+<v>data<> = {
+        '<v>name<>': 'John',
+        '<v>hometown<>': 'Springfield'}
+
+<v>template<> = Template(<v>template_text<>)
+<v>result<> = <v>template<>.render(<v>data<>)
+
+print(<v>result<>)
+
+<#>Prints: Hello John from Springfield!<><>
+@
+@ parameters, passing in
+
+
+
+
+### Template - Render- Pass Name, Value
+
+<cb>= <v>template_1<>.render(<v>name<> = <v>value<>)<>
+
+<cb>= <v>template_1<>.render(
+        <v>name_1<> = <v>value_1<>,
+        <v>name_2<> = <v>value_2<>,
+        <v>...<>)<>
+
+
+Renders a template passing in a variable.
+The  named parameter. 
+
+
+Example:
+
+<cb>from jinja2 import Template
+
+<v>template_text<> = 'Hello {{<v>name<>}} from {{<v>hometown<>}}!'
+
+<v>your_name<> = '<v>John<>'
+<v>your_hometown<> = '<v>Springfield<>'
+
+<v>template<> = Template(<v>template_text<>)
+
+<v>result<> = <v>template<>.render(
+        <v>name<> = <v>your_name<>,
+        <v>hometown<> = <v>your_hometown<>)
+
+print(<v>result<>)
+
+<#>Prints: Hello John from Springfield!<><>
+@
+@ parameters, passing in, single variable, value
+
+
+
+# Template - {Syntax}
+
+
+## Syntax - Details
+
+
+### Template Syntax - Comment
+
+<cb>{# <#>Comment<> #}<>
+
+This is not processed and not included in the output.
+@
+@ {#, #}, comments
+
+
+
+### Template Syntax - Expression
+
+<cb>{% <v>expression<> %}<>
+
+Evaluates the expression but does not return the results.
+@
+@ {%, %}, expressions
+
+
+
+### Template Syntax - Display Expression
+
+<cb>{{ <v>expression<> }}<>
+
+Evaluates the expression and returns the results as part of the generated content.
+@
+@ output, show
+@ {{, }}
+
+
+
+### Template Syntax - Display Variable
+
+<cb>{{ <v>name<> }}<>
+
+
+Adds the variable value to the generated content.
+@
+@ items, values, variables, output, show
+@ {{, }}
+
+
+
+# Control Statements
+@
+@ statements, flow
+@ control-only, controls-only
+
+
+
+### If
+
+<cb>{% if <v>expression<> %}
+    <v>...<>
+{% else  <v>expression<> %}
+    <v>...<>
+{% endif %}<>
+
+
+### For - In List
+
+<cb>\<% for <v>item<> in <v>items<> %>
+    <v>...<> {{ <v>item<> }}
+\<% endfor %><>
+
+
+
+### For - In Range
+
+<cb>\<% for <v>value<> in range(<v>first<>, <v>last_plus_one<>) %>
+    <v>...<> {{ <v>value<> }}
+\<% endfor %><>
+
+
+Example:
+
+<cb>from jinja2 import Template
+
+<v>template_text<> = '{% for <v>value<> in range(1, 4) %} {{<v>value<>}} {% endfor %}'
+
+<v>result<> = Template(<v>template_text<>).render()
+
+print(<v>result<>)
+
+<#>Prints:  1  2  3 <><>
+@
+@ for in range, endfor
+
+
+
+# Template - Components
+
+
+### Raw / Escape
+
+<cb>{% raw %}
+    <v>Raw content.<>
+{% endraw %}<>
+
+
+Processes the content inside the raw / endraw section as straight text.
+
+
+Example:
+
+<cb>from jinja2 import Template
+
+<v>template_text<> = '{% raw %} {{ value }} {% endraw %} =  {{ <v>value<> }}'
+
+<v>template<> = Template(<v>template_text<>)
+<v>result<> = <v>template<>.render(<v>value<> = 10)
+
+print(<v>result<>)
+
+<#>Prints:  {{ value }}  =  10<><>@
+@ raw, endraw, escaped
+
+
+
+# Template - Inheritance
+@
+@ extends, block, endblock
+
+
+### Template Inheritance - Basics
+
+Base File:
+
+<cb><v>main content...<>
+
+{% block <v>block_1<> %}{% endblock %}
+
+<v>...<>
+
+{% block <v>block_2<> %}{% endblock %}
+
+<v>...<><>
+
+Calling File:
+
+<cb>{% extends "<v>base_file_name<>" %}
+
+{% block <v>block_1<> %}
+<v>block 1 content<>
+{% endblock %}
+
+{% block <v>block_2<> %}
+<v>block 2 content<>
+{% endblock %}<>
+
+
+
+### Base Template
+
+<cb><v>Content<>
+{% block <v>block_name<> %}{% endblock %}
+<v>More Content<><>
+
+
+This is the base template.
+It defines the main content that is returned.
+It contains blocks that need content from the calling template.
+
+
+
+### Base Template - Block
+
+<cb>{% block <v>block_name<> %}{% endblock %}<>
+
+
+A part of the base template to be completed by the calling template.
+
+
+
+### Calling Template - Use Base Template
+
+<cb>{% extends "<v>base_file_name<>" %}<>
+
+
+Makes the base template as the main source for content.
+No content outside of blocks are used from the calling template.
+
+
+
+### Calling Template - Define Block Content
+
+<cb>{% block <v>caller_block_name<> %}
+<v>content<>
+{% endblock %}<>
+
+
+This content fills out blocks in the base template.
+
+
+
+# How To
+
+
+
+### Template - Include
+
+<cb>{% extends "<v>template_file_name<>" %}<>
+
+
+
+# Glossary
+
+
+## Terms
+
+
+### Statement
+Represented by <c>{% <v>statement<> %}<>
