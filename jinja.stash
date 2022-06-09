@@ -1,19 +1,48 @@
 # Jinja / Jinja2 SpeedSheet
+<b>Find it faster.<>
+
+This is an interactive <b>Jinja<> cheat sheet. Covers Jinja2, a powerful Python templating library. Use the search to instantly get answers.
 
 
-# Basics
+<table><col><b>Basics<>
 
-<table><col>Comment<><col><c><#>{# Comment #}<><><>
+<*><link "?q=hello-world-only">Hello World		<>
+<link "?q=install-only">Install<><>
+
+<*><link "?q=docs-only">Online Docs<>
+<link "?q=terms-only">Terms<><>
+
+<b>Python<>
+
+<*><link "?q=create-only">Create<>
+<link "?q=render-only">Render<><><><col><b>Syntax<>
+
+<*><link "?q=basics-only">Summary<>
+<link "?q=syntax-only">Syntax<>
+<link "?q=block-only">Blocks<>
+<link "?q=extend-only">Extend<><>
+
+<b>Control Structures<>
+
+<*><link "?q=control-only">Control Structures<><>
+
+<*><link "?q=if-only">If<>
+<link "?q=for-only">For<><><><>
+
+
+# Syntax Summary
+
+<table><col>Comment			<><col><c><#>{# Comment #}<><><>
 <col>Expression<><col><c>{% <v>expression<> %}<><>
 <col>Display Result<><col><c>{{ <v>expression<> }}<><>
 <col>Display Variable<><col><c>{{ <v>name<> }}<><>
 <col> <>
-<col>Raw<><col><c>{% raw %}<v>...<>{% endraw %}<><>
+<col>Raw / Escape<><col><c>{% raw %}<v>...<>{% endraw %}<><>
 <col> <>
-<col>Base - Define Block<><col><c>{% block <v>block_name<> %}{% endblock %}<><>
+<col>Block - Define<><col><c>{% block <v>block_name<> %}{% endblock %}<><>
 <col> <>
-<col>Include Base<><col><c>{% extends "<v>base_template_file<>" %}<><>
-<col>Complete Base Block<><col><c>{% block <v>block_name<> %}<v>...<>{% endblock %}<><>
+<col>Block - Include <><col><c>{% extends "<v>base_template_file<>" %}<><>
+<col>Block - Complete<><col><c>{% block <v>block_name<> %}<v>...<>{% endblock %}<><>
 <col> <>
 <col> <>
 <col>If Else<><col><c>{% if <v>expression<> %}
@@ -25,6 +54,20 @@
 <col>For<><col><c>{% for <v>item<> in <v>items<> %}
         <v>...<> {{ <v>item<> }}
 {% endfor %}<><><>
+@
+@ quick-view-only, basics-only, summary-only, syntax-summary-only
+
+
+
+# Online References
+@
+@ online-docs-only, docs-only
+
+### Official
+<l>https://jinja.palletsprojects.com/en/3.0.x/<>
+
+### Documents
+<l>https://jinja.palletsprojects.com/en/3.0.x/<>
 
 
 
@@ -33,21 +76,11 @@
 Jinja is a fast and flexible templating engine.
 
 
-### Online References
-
-Official:
-<l>https://jinja.palletsprojects.com/en/3.0.x/<>
-
-Documents:
-<l>https://jinja.palletsprojects.com/en/3.0.x/<>
-
-
-
 ### Install - PIP
 
 <cb>pip3 install Jinja2<>
 @
-@ library
+@ library, install-only
 
 
 
@@ -61,7 +94,7 @@ Add:
 
 <cb>Jinja2<>
 @
-@ library
+@ library, install-only
 
 
 
@@ -82,7 +115,10 @@ Add:
 @ library
 
 
+
 # Hello World
+@
+@ hello-world-only, hello-only
 
 
 ### Basic Example
@@ -93,7 +129,7 @@ Add:
 
 <v>template<> = Template(<v>template_text<>)
 <v>result<> = <v>template<>.render({
-        '<v>name<>': 'John',
+        '<v>name<>': 'Bart',
         '<v>hometown<>': 'Springfield'})
 
 print(<v>result<>)
@@ -122,7 +158,7 @@ Python:
 <v>template<> = <v>environment<>.get_template('<v>hello.text<>')
 
 <v>result<> = <v>template<>.render({
-        '<v>name<>': 'John',
+        '<v>name<>': 'Bart',
         '<v>hometown<>': 'Springfield'})
 
 print(<v>result<>)
@@ -132,6 +168,8 @@ print(<v>result<>)
 
 
 # Template - Create
+@
+@ create-only, template-create-only
 
 
 ### Template - Create From File
@@ -207,6 +245,7 @@ print(<v>result<>)
 # Template - Render
 @
 @ .render()
+@ render-only, template-render-only
 
 
 ### Template - Render
@@ -243,7 +282,6 @@ print(<v>result<>)
 <#>Prints: Hello John from Springfield!<><>
 @
 @ parameters, passing in
-
 
 
 
@@ -284,13 +322,12 @@ print(<v>result<>)
 
 
 
-# Template - {Syntax}
+# Template - Syntax
+@
+@ syntax-only, template-syntax, {}
 
 
-## Syntax - Details
-
-
-### Template Syntax - Comment
+### Syntax - Comment
 
 <cb>{# <#>Comment<> #}<>
 
@@ -300,7 +337,7 @@ This is not processed and not included in the output.
 
 
 
-### Template Syntax - Expression
+### Syntax - Expression
 
 <cb>{% <v>expression<> %}<>
 
@@ -310,7 +347,7 @@ Evaluates the expression but does not return the results.
 
 
 
-### Template Syntax - Display Expression
+### Syntax - Display Expression
 
 <cb>{{ <v>expression<> }}<>
 
@@ -321,7 +358,7 @@ Evaluates the expression and returns the results as part of the generated conten
 
 
 
-### Template Syntax - Display Variable
+### Syntax - Display Variable
 
 <cb>{{ <v>name<> }}<>
 
@@ -333,10 +370,45 @@ Adds the variable value to the generated content.
 
 
 
-# Control Statements
+### Syntax - Extend
+
+<cb>{% extends "<v>template_file_name<>" %}<>
 @
-@ statements, flow
-@ control-only, controls-only
+@ include-only, extend-only
+
+
+
+### Syntax - Raw Section / Escape
+
+<cb>{% raw %}
+    <v>Raw content.<>
+{% endraw %}<>
+
+
+Processes the content inside the raw / endraw section as straight text.
+
+
+Example:
+
+<cb>from jinja2 import Template
+
+<v>template_text<> = '{% raw %} {{ value }} {% endraw %} =  {{ <v>value<> }}'
+
+<v>template<> = Template(<v>template_text<>)
+<v>result<> = <v>template<>.render(<v>value<> = 10)
+
+print(<v>result<>)
+
+<#>Prints:  {{ value }}  =  10<><>@
+@ raw, endraw, escaped
+@ raw-only
+
+
+
+# Control Structures
+@
+@ statements, structures, flow
+@ control-only, controls-only, control-structures-only, control-statements-only
 
 
 
@@ -346,7 +418,10 @@ Adds the variable value to the generated content.
     <v>...<>
 {% else  <v>expression<> %}
     <v>...<>
-{% endif %}<>
+{% endif %}<>@
+@
+@ conditional
+@ if-only, if-else-only, then, else, elif, elseif
 
 
 ### For - In List
@@ -354,6 +429,8 @@ Adds the variable value to the generated content.
 <cb>\<% for <v>item<> in <v>items<> %>
     <v>...<> {{ <v>item<> }}
 \<% endfor %><>
+@
+@ for-only, loop, loops, for-loops
 
 
 
@@ -377,41 +454,14 @@ print(<v>result<>)
 <#>Prints:  1  2  3 <><>
 @
 @ for in range, endfor
+@ for-only, loop, loops, for-loops
 
 
 
-# Template - Components
-
-
-### Raw / Escape
-
-<cb>{% raw %}
-    <v>Raw content.<>
-{% endraw %}<>
-
-
-Processes the content inside the raw / endraw section as straight text.
-
-
-Example:
-
-<cb>from jinja2 import Template
-
-<v>template_text<> = '{% raw %} {{ value }} {% endraw %} =  {{ <v>value<> }}'
-
-<v>template<> = Template(<v>template_text<>)
-<v>result<> = <v>template<>.render(<v>value<> = 10)
-
-print(<v>result<>)
-
-<#>Prints:  {{ value }}  =  10<><>@
-@ raw, endraw, escaped
-
-
-
-# Template - Inheritance
+# Template - Blocks / Inheritance
 @
-@ extends, block, endblock
+@ extends, block, endblock, inheritance-only
+@ block-only
 
 
 ### Template Inheritance - Basics
@@ -485,20 +535,9 @@ This content fills out blocks in the base template.
 
 
 
-# How To
-
-
-
-### Template - Include
-
-<cb>{% extends "<v>template_file_name<>" %}<>
-
-
-
-# Glossary
-
-
-## Terms
+# Terms
+@
+@ glossary, term-only, terms-only
 
 
 ### Statement
