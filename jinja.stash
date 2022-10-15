@@ -1,4 +1,4 @@
-# Jinja / Jinja2 SpeedSheet
+# <#>Jinja<> / <#>Jinja2<> SpeedSheet
 <b>Find it faster.<>
 
 This is an interactive <b>Jinja<> cheat sheet. Covers Jinja2, a powerful Python templating library. Use the search to instantly get answers.
@@ -426,19 +426,39 @@ print(<v>result<>)
 
 ### For - In List
 
-<cb>\<% for <v>item<> in <v>items<> %>
+<cb>{% for <v>item<> in <v>items<> %}
     <v>...<> {{ <v>item<> }}
-\<% endfor %><>
+{% endfor %}<>
+
+
+Loops through all items rendering the template between <c>for<> and <c>endfor<>.
+
+
+Example:
+
+<cb>from jinja2 import Template
+
+<v>items<> = ['one', 'two', 'three']
+<v>data<> = {'items': <v>items<>}
+
+<v>template_text<> = '''{% for <v>item<> in <v>items<> %} {{ <v>item<> }} {% endfor %}'''
+<v>result<> = Template(<v>template_text<>).render(<v>data<>)
+
+print(<v>result<>)
+
+<#>Prints:  one  two  three <><>
 @
+@ sequence, for, endfor
 @ for-only, loop, loops, for-loops
+@ {%, %}
 
 
 
 ### For - In Range
 
-<cb>\<% for <v>value<> in range(<v>first<>, <v>last_plus_one<>) %>
+<cb>{% for <v>value<> in range(<v>first<>, <v>last_plus_one<>) %}
     <v>...<> {{ <v>value<> }}
-\<% endfor %><>
+{% endfor %}<>
 
 
 Example:
@@ -455,6 +475,7 @@ print(<v>result<>)
 @
 @ for in range, endfor
 @ for-only, loop, loops, for-loops
+@ {%, %}
 
 
 
